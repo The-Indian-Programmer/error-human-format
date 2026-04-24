@@ -1,6 +1,6 @@
 {
   "name": "error-human-format",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Intelligent error explanation engine — converts raw JS/Node.js errors into human-readable explanations with actionable debugging suggestions",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
