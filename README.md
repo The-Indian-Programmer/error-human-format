@@ -1,9 +1,9 @@
-# error-humanizer
+# error-human-format
 
 > Intelligent error explanation engine for JavaScript and Node.js.  
 > Converts raw errors into human-readable explanations with actionable debugging suggestions.
 
-[![npm version](https://img.shields.io/npm/v/error-humanizer.svg)](https://www.npmjs.com/package/error-humanizer)
+[![npm version](https://img.shields.io/npm/v/error-human-format.svg)](https://www.npmjs.com/package/error-human-format)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![TypeScript](https://img.shields.io/badge/TypeScript-strict-blue.svg)](https://www.typescriptlang.org/)
 
@@ -11,7 +11,7 @@
 
 ## Why?
 
-Raw JavaScript errors tell you *what* broke. `error-humanizer` tells you *why* it likely broke and *how* to fix it — instantly, without leaving your terminal or codebase.
+Raw JavaScript errors tell you *what* broke. `error-human-format` tells you *why* it likely broke and *how* to fix it — instantly, without leaving your terminal or codebase.
 
 ```
 ❌  Accessed property "id" on undefined
@@ -43,17 +43,17 @@ Raw JavaScript errors tell you *what* broke. `error-humanizer` tells you *why* i
 ## Installation
 
 ```bash
-npm install error-humanizer
+npm install error-human-format
 # or
-pnpm add error-humanizer
+pnpm add error-human-format
 # or
-yarn add error-humanizer
+yarn add error-human-format
 ```
 
 For the CLI tool, install globally:
 
 ```bash
-npm install -g error-humanizer
+npm install -g error-human-format
 ```
 
 ---
@@ -63,7 +63,7 @@ npm install -g error-humanizer
 ### Programmatic API
 
 ```ts
-import { humanize } from 'error-humanizer';
+import { humanize } from 'error-human-format';
 
 try {
   // your code
@@ -83,19 +83,19 @@ try {
 
 ```bash
 # Analyse an error message
-error-humanizer "Cannot read properties of undefined (reading 'id')"
+error-human-format "Cannot read properties of undefined (reading 'id')"
 
 # Pipe a stack trace
-cat error.log | error-humanizer
+cat error.log | error-human-format
 
 # Output raw JSON
-error-humanizer "myVar is not defined" --json
+error-human-format "myVar is not defined" --json
 
 # Include the stack trace in output
-error-humanizer "ECONNREFUSED 127.0.0.1:5432" --stack
+error-human-format "ECONNREFUSED 127.0.0.1:5432" --stack
 
 # Disable colours (e.g. for CI)
-error-humanizer "Unexpected end of JSON input" --no-color
+error-human-format "Unexpected end of JSON input" --no-color
 ```
 
 ---
@@ -107,7 +107,7 @@ error-humanizer "Unexpected end of JSON input" --no-color
 Converts any error into a structured `HumanizedError` report.
 
 ```ts
-import { humanize } from 'error-humanizer';
+import { humanize } from 'error-human-format';
 
 const result = await humanize(input, options);
 ```
@@ -153,7 +153,7 @@ interface HumanizedError {
 Register a custom (or override a built-in) pattern.
 
 ```ts
-import { registerPattern } from 'error-humanizer';
+import { registerPattern } from 'error-human-format';
 
 registerPattern({
   id: 'my_app.db_connection',
@@ -186,7 +186,7 @@ registerPattern({
 Direct access to the global pattern registry (for advanced use):
 
 ```ts
-import { registry } from 'error-humanizer';
+import { registry } from 'error-human-format';
 
 console.log(registry.size);            // number of registered patterns
 const pattern = registry.get('type_error.cannot_read_props');
@@ -202,7 +202,7 @@ import {
   parseStackTrace,
   getMostRelevantFrame,
   formatFrame,
-} from 'error-humanizer';
+} from 'error-human-format';
 
 const frames  = parseStackTrace(err.stack ?? '');
 const topFrame = getMostRelevantFrame(frames);
@@ -215,7 +215,7 @@ const label    = formatFrame(topFrame!); // "/app/src/handler.ts:42:8 (handleReq
 
 ```ts
 import express from 'express';
-import { errorHumanizerMiddleware } from 'error-humanizer/middleware';
+import { errorHumanizerMiddleware } from 'error-human-format/middleware';
 
 const app = express();
 
@@ -268,7 +268,7 @@ app.use(errorHumanizerMiddleware({
 When no built-in pattern matches, you can plug in any AI provider:
 
 ```ts
-import { humanize } from 'error-humanizer';
+import { humanize } from 'error-human-format';
 import Anthropic from '@anthropic-ai/sdk';
 
 const anthropic = new Anthropic();
@@ -350,7 +350,7 @@ import prismaErrorPatterns from '../patterns/prismaErrors.js';
 ## Project Structure
 
 ```
-error-humanizer/
+error-human-format/
 ├── src/
 │   ├── core/
 │   │   ├── humanizer.ts      # humanize() + registerPattern()
@@ -432,7 +432,7 @@ Please ensure:
 
 ## VS Code Extension (Architecture Note)
 
-`error-humanizer` is designed to be extension-ready. The core `humanize()` function has no Node.js-specific dependencies and can run in a VS Code extension host. A VS Code extension can:
+`error-human-format` is designed to be extension-ready. The core `humanize()` function has no Node.js-specific dependencies and can run in a VS Code extension host. A VS Code extension can:
 
 1. Subscribe to the language server's diagnostic events.
 2. Pass error messages to `humanize()`.
@@ -442,4 +442,4 @@ Please ensure:
 
 ## License
 
-MIT © error-humanizer contributors
+MIT © error-human-format contributors
