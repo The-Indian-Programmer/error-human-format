@@ -1,6 +1,6 @@
 {
   "name": "error-human-format",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Intelligent error explanation engine — converts raw JS/Node.js errors (including Prisma) into human-readable explanations with actionable debugging suggestions",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -68,10 +68,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-org/error-human-format.git"
+    "url": "https://github.com/The-Indian-Programmer/error-human-format"
   },
   "bugs": {
-    "url": "https://github.com/your-org/error-human-format/issues"
+    "url": "https://github.com/The-Indian-Programmer/error-human-format/issues"
   },
-  "homepage": "https://github.com/your-org/error-human-format#readme"
+  "homepage": "https://github.com/The-Indian-Programmer/error-human-format#readme"
 }
