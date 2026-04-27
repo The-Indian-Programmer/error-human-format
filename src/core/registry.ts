@@ -5,16 +5,17 @@ import syntaxErrorPatterns from "../patterns/syntaxErrors.js";
 import networkErrorPatterns from "../patterns/networkErrors.js";
 import promiseErrorPatterns from "../patterns/promiseErrors.js";
 import moduleErrorPatterns from "../patterns/moduleErrors.js";
+import prismaErrorPatterns from "../patterns/prismaErrors.js";
 
 /**
  * Central registry for all error patterns.
  *
- * Patterns are grouped by tag/category for O(1) category lookup, and stored
- * in an ordered array for sequential matching (ordered by descending confidence).
+ * Patterns are stored in a Map keyed by ID (O(1) lookup/override) and
+ * sorted by confidence descending for sequential matching with early exit.
  */
 export class PatternRegistry {
   private readonly patterns: Map<string, ErrorPattern> = new Map();
-  /** Sorted flat list — rebuilt whenever a pattern is added */
+  /** Sorted flat list — rebuilt lazily whenever a pattern is added */
   private sortedCache: ErrorPattern[] | null = null;
 
   constructor() {
@@ -25,6 +26,7 @@ export class PatternRegistry {
       ...networkErrorPatterns,
       ...promiseErrorPatterns,
       ...moduleErrorPatterns,
+      ...prismaErrorPatterns,
     ];
 
     for (const pattern of builtIn) {
@@ -43,7 +45,7 @@ export class PatternRegistry {
 
   /**
    * Return all patterns sorted by confidence descending.
-   * The sorted list is lazily computed and cached until the next register() call.
+   * Lazily computed and cached until the next register() call.
    */
   getSorted(): readonly ErrorPattern[] {
     if (!this.sortedCache) {
